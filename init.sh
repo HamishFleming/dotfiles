@@ -3,18 +3,29 @@
 #TODO set up file backups of original files to .dot_old for each file
 #TODO var paths for each dotfile ie: mv $(PATH)/.filerc, mainly for things like awesome and zsh theme with nth level 
 
+BACKUP_DIR="$HOME/.dotfiles"
+DOTFILES_DIR="$BACKUP_DIR"
+
+
+git clone --depth=1 git@github.com:HamishFleming/dotfiles.git "$BACKUP_DIR" || {
+  printf "Error: git clone of configuration repo failed\n"
+  exit 1
+}
 
 
 
 
-
-# symlinks
+# symlinks adding the force flag here, temporary backups shall be added once i bother setting it in stone
 
 #ZSH Theme
-ln -s ~/.dotfiles/my-theme.zsh-theme ~/.oh-my-zsh/themes/my-theme.zsh-theme
-
+ln -sf ~/.dotfiles/my-theme.zsh-theme ~/.oh-my-zsh/themes/my-theme.zsh-theme
 #git config
-ln -s ~/.dotfiles/.gitconfig ~/.gitconfig
-
+ln -sf ~/.dotfiles/.gitconfig ~/.gitconfig
 #awesomerc
-ln -s ~/.dotfiles/rc.lua ~/.config/awesome/rc.lua
+ln -sf ~/.dotfiles/rc.lua ~/.config/awesome/rc.lua
+
+
+
+#bootstrap backup script 
+"$BACKUP_DIR/config_updater.sh"
+

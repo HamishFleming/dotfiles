@@ -4,7 +4,7 @@ BACKUP_DIR="$HOME/.dotfiles"
 THIS_SCRIPT_FULL_PATH="$BACKUP_DIR/$(basename -- "$0")"
 
 
-cd "$DOTFILE_DIR" || exit
+cd "$BACKUP_DIR" || exit
 if ! git diff --quiet HEAD || git status --short; then
   git add --all
   git commit -m "updating dotfiles on $(date -u)"
