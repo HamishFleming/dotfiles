@@ -2,6 +2,12 @@
 
 #TODO set up file backups of original files to .dot_old for each file
 #TODO var paths for each dotfile ie: mv $(PATH)/.filerc, mainly for things like awesome and zsh theme with nth level 
+
+
+
+
+
+
 # symlinks
 
 #ZSH Theme

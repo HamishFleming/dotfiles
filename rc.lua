@@ -18,6 +18,13 @@ local hotkeys_popup = require("awful.hotkeys_popup")
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
 
+
+--custom plugins and such
+--
+local battery_widget = require("awesome-wm-widgets.battery-widget.battery")
+
+
+
 -- Load Debian menu entries
 local debian = require("debian.menu")
 local has_fdo, freedesktop = pcall(require, "freedesktop")
@@ -202,8 +209,8 @@ awful.screen.connect_for_each_screen(function(s)
     -- Create a taglist widget
     s.mytaglist = awful.widget.taglist {
         screen  = s,
-        filter  = awful.widget.taglist.filter.all,
-        buttons = taglist_buttons
+        filter  = function (t) return t.selected end,
+	buttons = taglist_buttons
     }
 
     -- Create a tasklist widget
@@ -219,6 +226,8 @@ awful.screen.connect_for_each_screen(function(s)
     -- Add widgets to the wibox
     s.mywibox:setup {
         layout = wibox.layout.align.horizontal,
+	expand = "outside",
+
         { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
           --  mylauncher,
@@ -228,17 +237,15 @@ awful.screen.connect_for_each_screen(function(s)
 --        s.mytasklist, -- Middle widget
 --        Align Text Clock to the Center Of The Screen
         {
-           	 mytextclock,
-		valign = "center",
-		halign = "center",
-		layout = wibox.container.place
-
+           	mytextclock,
+		layout = wibox.layout.fixed.horizontal,
+	
         },
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
-            mykeyboardlayout,
             wibox.widget.systray(),
             s.mylayoutbox,
+	    battery_widget({display_notification = true }),
         },
     }
 end)
@@ -622,7 +629,7 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 -- Auto Start Applications
 awful.spawn.with_shell("nitrogen --restore && sleep 1 ")
 awful.spawn.once("compton")
-awful.spawn.once("redshift")
+--awful.spawn.once("redshift")
 awful.spawn("xfce4-power-manager")
 
 
