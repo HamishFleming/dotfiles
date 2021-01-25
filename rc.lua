@@ -22,8 +22,14 @@ require("awful.hotkeys_popup.keys")
 --custom plugins and such
 --
 local battery_widget = require("awesome-wm-widgets.battery-widget.battery")
+local calendar_widget = require("awesome-wm-widgets.calendar-widget.calendar")
 
 
+local cw = calendar_widget({
+    theme = 'nord',
+    placement = 'top_center',
+    radius = 8
+})
 
 -- Load Debian menu entries
 local debian = require("debian.menu")
@@ -134,6 +140,13 @@ mykeyboardlayout = awful.widget.keyboardlayout()
 -- Create a textclock widget
 mytextclock = wibox.widget.textclock()
 
+mytextclock:connect_signal("button::press",
+    function(_, _, _, button)
+        if button == 1 then cw.toggle() end
+    end)
+
+
+
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
                     awful.button({ }, 1, function(t) t:view_only() end),
@@ -221,7 +234,7 @@ awful.screen.connect_for_each_screen(function(s)
     }
 
     -- Create the wibox
-    s.mywibox = awful.wibar({ position = "top", screen = s })
+    s.mywibox = awful.wibar({ position = "top", screen = s }) --, bg = "transparent"
 
     -- Add widgets to the wibox
     s.mywibox:setup {
@@ -242,7 +255,7 @@ awful.screen.connect_for_each_screen(function(s)
 	
         },
         { -- Right widgets
-            layout = wibox.layout.fixed.horizontal,
+            layout = wibox.layout.align.horizontal,
             wibox.widget.systray(),
             s.mylayoutbox,
 	    battery_widget({display_notification = true }),
