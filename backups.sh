@@ -8,7 +8,7 @@ cd "$DOTFILE_DIR" || exit
 if ! git diff --quiet HEAD || git status --short; then
   git add --all
   git commit -m "updating dotfiles on $(date -u)"
-  git push origin master
+  git push origin main 
 fi
 
 
