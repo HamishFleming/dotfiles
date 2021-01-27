@@ -3,5 +3,7 @@ alias gc=$HOME/bin/git_create.sh
 alias todo=$HOME/bin/todo.sh
 alias cls='clear'
 
+# Alias For My VimWiki
+alias ww="vim ~/vimwiki/index.wiki"
 
 
