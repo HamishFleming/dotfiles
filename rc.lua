@@ -19,22 +19,7 @@ local hotkeys_popup = require("awful.hotkeys_popup")
 require("awful.hotkeys_popup.keys")
 
 
---custom plugins and such
---
-local battery_widget = require("awesome-wm-widgets.battery-widget.battery")
-local calendar_widget = require("awesome-wm-widgets.calendar-widget.calendar")
-
-
-local cw = calendar_widget({
-    theme = 'nord',
-    placement = 'top_center',
-    radius = 8
-})
-
 -- Load Debian menu entries
-local debian = require("debian.menu")
-local has_fdo, freedesktop = pcall(require, "freedesktop")
-
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
@@ -65,7 +50,7 @@ end
 beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "x-terminal-emulator"
+terminal = "terminator"
 editor = os.getenv("EDITOR") or "editor"
 editor_cmd = terminal .. " -e " .. editor
 
@@ -119,7 +104,6 @@ else
     mymainmenu = awful.menu({
         items = {
                   menu_awesome,
-                  { "Debian", debian.menu.Debian_menu.Debian },
                   menu_terminal,
                 }
     })
@@ -258,7 +242,6 @@ awful.screen.connect_for_each_screen(function(s)
             layout = wibox.layout.align.horizontal,
             wibox.widget.systray(),
             s.mylayoutbox,
-	    battery_widget({display_notification = true }),
         },
     }
 end)
