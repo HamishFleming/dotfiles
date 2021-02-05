@@ -19,10 +19,13 @@ git clone --depth=1 git@github.com:HamishFleming/dotfiles.git "$BACKUP_DIR" || {
 
 #ZSH Theme
 ln -sf ~/.dotfiles/my-theme.zsh-theme ~/.oh-my-zsh/themes/my-theme.zsh-theme
+#Zsh Alias
+ln -sf ~/.dotfiles/.zsh-alias.sh ~/.zsh-alias.sh
 #git config
 ln -sf ~/.dotfiles/.gitconfig ~/.gitconfig
 #awesomerc
 ln -sf ~/.dotfiles/rc.lua ~/.config/awesome/rc.lua
+
 
 
 
