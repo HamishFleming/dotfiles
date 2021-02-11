@@ -4,6 +4,6 @@ alias todo=$HOME/bin/todo.sh
 alias cls='clear'
 
 # Alias For My VimWiki
-alias ww="vim ~/vimwiki/index.wiki"
+alias ww="vim ~/Documents/Personal/Wiki/index.wiki"
 
 
